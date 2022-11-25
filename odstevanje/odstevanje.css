@@ -1,0 +1,86 @@
+body {
+	background-image: url("Nebo.jpg");
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+	background-size: cover;
+	overflow:hidden;
+	margin:0;
+}
+	
+p {
+	text-align: center;
+	font-family: "Trebuchet MS"; 
+	margin-top: 0px;
+	color: white;
+	border-bottom: 0px;
+}
+
+p#stej {
+	font-size: 200px;
+}
+	
+img {
+	width: 60%;
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+#sirina {
+	width: 100%;
+	text-align: center;
+	padding-left: auto;
+	padding-right: auto;
+}
+
+
+#notri {
+	width: 90%;
+	padding-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+@media only screen and (max-width: 1500px) {
+	p#stej {
+		font-size: 150px;
+	}
+}
+
+@media only screen and (max-width: 1250px) {
+	p#stej {
+		font-size: 140px; 
+	}
+}
+
+@media only screen and (max-width: 1250px) {
+	p#stej {
+		font-size: 130px; 
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+	p#stej {
+		font-size: 110px;
+	}
+}
+
+@media only screen and (max-width: 850px) {
+	p#stej {
+		font-size: 95px;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	p#stej {
+		font-size: 80px;
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	p#stej {
+		font-size: 50px;
+	}
+}
