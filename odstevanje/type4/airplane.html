@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="sl">
+	<head>
+		<title>Odštevanje do novega leta</title>
+		<meta charset="UTF-8">
+		<meta name="description" content="It's the final countdown">
+		<meta name="keywords" content="#KG4EVER, #KG=LIFE, #zespet, #adr4ever">
+		<meta name="author" content="airplaneboy">
+		<meta name="viewport" content="width=device-vidth,initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="airplane.css">
+		<link rel="stylesheet" type="text/css" href="tabla.css">
+		<link rel="icon" type="image/png" href="../../img/airplane.png">
+	</head>
+	<body>
+	
+		<div class="Tabla">
+			<div class="pane">&nbsp</div>
+			<div class="pane">n</div>
+			<div class="pane">e</div>
+			<div class="pane">w</div>
+			<div class="pane">&nbsp</div>
+			<div class="pane">y</div>
+			<div class="pane">e</div>
+			<div class="pane">a</div>
+			<div class="pane">r</div>
+			<div class="pane">&nbsp</div>
+		</div>
+		
+		
+		
+		<!-- Letalo -->
+		<div class="plane">
+			<div class="ver-stab"></div>
+			<div class="ver-stab-tri"></div>
+			<div class="nose">
+				<div class="window1"></div>
+				<div class="window2"></div>
+				<div class="window3"></div>
+				<div class="window4"></div>
+			</div>
+			<div class="back-body"></div>
+			<div class="hor-stab"></div>
+			<div class="hor-stab2"></div>
+			<div class="wing"></div>
+			<div class="wing-bottom"></div>
+			<div class="wing right"></div>
+			<div class="wing-bottom wing-right"></div>
+			
+			<div class="engine">
+				<div class="fan">
+					<div class="front">
+						<div class="fan inner"></div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="engine eng-big2">
+				<div class="fan">
+					<div class="front">
+						<div class="fan inner"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="Tabla2">
+			<div class="pane" id="1d"></div>
+			<div class="pane" id="2d"></div>
+			<div class="pane" id="3d"></div>
+			<div class="pane" id="1k"></div>
+			<div class="pane" id="1h"></div>
+			<div class="pane" id="2h"></div>
+			<div class="pane" id="2k"></div>
+			<div class="pane" id="1m"></div>
+			<div class="pane" id="2m"></div>
+			<div class="pane" id="3k"></div>
+			<div class="pane" id="1s"></div>
+			<div class="pane" id="2s"></div>
+		</div>
+	
+		<script>
+			// Set the date we're counting down to
+			var countDownDate = new Date("Jan 01, 2023 00:00:00").getTime();
+
+			// Update the count down every 1 second
+			var x = setInterval(odstevanje, 1000);
+			
+			function odstevanje() {
+	
+				// Get todays date and time
+				var now = new Date().getTime();
+    
+				// Find the distance between now and the count down date
+				var distance = countDownDate - now;
+    
+				// Time calculations for days, hours, minutes and seconds
+				var days1 = Math.floor(distance / (1000 * 60 * 60 * 24)) / (100);
+				var days2 = Math.floor(distance / (1000 * 60 * 60 * 24)) / (10);
+				var days3 = days2 * 10;
+				var hours1 = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) / (10));
+				var hours2 = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes1 = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60) / (10));
+				var minutes2 = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds1 = Math.floor((distance % (1000 * 60)) / (1000) / (10));
+				var seconds2 = Math.floor((distance % (1000 * 60)) / (1000));
+    
+	
+				
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Predzadnja števka dneva
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				if (days2 >= 90) {
+					var dnevi2 = days2 - 90
+				} else if (days2 >= 80) {
+					var dnevi2 = days2 - 80
+				} else if (days2 >= 70) {
+					var dnevi2 = days2 - 70
+				} else if (days2 >= 60) {
+					var dnevi2 = days2 - 60
+				} else if (days2 >= 50) {
+					var dnevi2 = days2 - 50
+				} else if (days2 >= 40) {
+					var dnevi2 = days2 - 40
+				} else if (days2 >= 30) {
+					var dnevi2 = days2 - 30
+				} else if (days2 >= 20) {
+					var dnevi2 = days2 - 20
+				} else if (days2 >= 10) {
+					var dnevi2 = days2 - 10
+				}  else {
+					var dnevi2 = days2
+				}
+				
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Zadnja števka dneva
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				if (days1 >= 9) {
+					var dan3 = days3 - 900
+				} else if (days1 >= 8) {
+					var dan3 = days3 - 800
+				} else if (days1 >= 7) {
+					var dan3 = days3 - 700
+				} else if (days1 >= 6) {
+					var dan3 = days3 - 600
+				} else if (days1 >= 5) {
+					var dan3 = days3 - 500
+				} else if (days1 >= 4) {
+					var dan3 = days3 - 400
+				} else if (days1 >= 3) {
+					var dan3 = days3 - 300
+				} else if (days1 >= 2) {
+					var dan3 = days3 - 200
+				} else if (days1 >= 1) {
+					var dan3 = days3 - 100
+				} else {
+					var dan3 = days3
+				}
+				
+				if (dan3 >= 90) {
+					var dnevi3 = dan3 - 90
+				} else if (dan3 >= 80) {
+					var dnevi3 = dan3 - 80
+				} else if (dan3 >= 70) {
+					var dnevi3 = dan3 - 70
+				} else if (dan3 >= 60) {
+					var dnevi3 = dan3 - 60
+				} else if (dan3 >= 50) {
+					var dnevi3 = dan3 - 50
+				} else if (dan3 >= 40) {
+					var dnevi3 = dan3 - 40
+				} else if (dan3 >= 30) {
+					var dnevi3 = dan3 - 30
+				} else if (dan3 >= 20) {
+					var dnevi3 = dan3 - 20
+				} else if (dan3 >= 10) {
+					var dnevi3 = dan3 - 10
+				} else {
+					var dnevi3 = dan3
+				}
+				
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Ure
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				if (hours2 >= 20) {
+					var ure2 = hours2 - 20
+				} else if (hours2 >= 10) {
+					var ure2 = hours2 - 10
+				} else {
+					var ure2 = hours2
+				}
+				
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Minute
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				if (minutes2 >= 50) {
+					var minute2 = minutes2 - 50
+				} else if (minutes2 >= 40) {
+					var minute2 = minutes2 - 40
+				} else if (minutes2 >= 30) {
+					var minute2 = minutes2 - 30
+				} else if (minutes2 >= 20) {
+					var minute2 = minutes2 - 20
+				} else if (minutes2 >= 10) {
+					var minute2 = minutes2 - 10
+				} else {
+					var minute2 = minutes2
+				}
+				
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Sekunde
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				if (seconds2 >= 50) {
+					var sekunde2 = seconds2 - 50
+				} else if (seconds2 >= 40) {
+					var sekunde2 = seconds2 - 40
+				} else if (seconds2 >= 30) {
+					var sekunde2 = seconds2 - 30
+				} else if (seconds2 >= 20) {
+					var sekunde2 = seconds2 - 20
+				} else if (seconds2 >= 10) {
+					var sekunde2 = seconds2 - 10
+				} else {
+					var sekunde2 = seconds2
+				}
+				
+				
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				//Izpiše
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+				document.getElementById("1d").innerHTML = Math.floor(days1);
+				document.getElementById("2d").innerHTML = Math.floor(dnevi2);
+				document.getElementById("3d").innerHTML = Math.floor(dnevi3);
+				document.getElementById("1k").innerHTML = ":";
+				document.getElementById("1h").innerHTML = Math.floor(hours1);
+				document.getElementById("2h").innerHTML = Math.floor(ure2);
+				document.getElementById("2k").innerHTML = ":";
+				document.getElementById("1m").innerHTML = Math.floor(minutes1);
+				document.getElementById("2m").innerHTML = Math.floor(minute2);
+				document.getElementById("3k").innerHTML = ":";
+				document.getElementById("1s").innerHTML = Math.floor(seconds1);
+				document.getElementById("2s").innerHTML = Math.floor(sekunde2);
+				
+				
+				
+				
+				// If the count down is over, write some text 
+				if (distance < 1000) {
+					clearInterval(x);
+					
+					document.getElementById("1d").innerHTML = "S";
+					document.getElementById("2d").innerHTML = "R";
+					document.getElementById("3d").innerHTML = "E";
+					document.getElementById("1k").innerHTML = "Č";
+					document.getElementById("1h").innerHTML = "N";
+					document.getElementById("2h").innerHTML = "O";
+					document.getElementById("2k").innerHTML = "&nbsp";
+					document.getElementById("1m").innerHTML = "2";
+					document.getElementById("2m").innerHTML = "0";
+					document.getElementById("3k").innerHTML = "2";
+					document.getElementById("1s").innerHTML = "3";
+					document.getElementById("2s").innerHTML = "!";	
+				}
+			}		
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,597 @@
+﻿<!DOCTYPE html>
+<html lang="sl">
+	<head>
+		<title>Odštevanje do novega leta</title>
+		<meta charset="UTF-8">
+		<meta name="description" content="It's the final countdown">
+		<meta name="keywords" content="#KG4EVER, #KG=LIFE, #zespet, #adr4ever">
+		<meta name="author" content="airplaneboy">
+		<meta name="viewport" content="width=device-vidth,initial-scale=1.0">
+		<!--<link rel="stylesheet" type="text/css" href="global.css">-->
+		<link rel="icon" type="image/png" href="../../img/airplane.png">
+		<style>
+		/**********************************************************************************************************************************************************************************************************************************/
+/*S*/
+/**********************************************************************************************************************************************************************************************************************************/
+
+html {
+	background: #C5E6DE;
+	height: 100%;
+	width: 100%;
+	font-family: sans-serif;
+}
+
+body {
+	margin: 0;
+	overflow: hidden;
+	height: 100%;
+}
+
+
+/**********************************************************************************************************************************************************************************************************************************/
+/*Letalo*/
+/**********************************************************************************************************************************************************************************************************************************/
+.wrapper {
+	margin: auto;
+	margin-top: 50px;
+	width:800px;
+	height: 600px;
+	overflow: hidden;
+	position: relative;
+	background: #C5E6DE;
+	z-index:-10;
+}
+
+.airplane {
+	width: 500px;
+	height: 80px;
+	position: absolute;
+	top: 25%;
+	left: 1000px;
+	margin: -100px 0 0 1000px;
+	animation: move 30s linear infinite;
+}
+
+.shuttle {
+  width: 90px; 
+  height: 25px; 
+  background: #D85836;
+  position: absolute;
+  left: 0px; 
+  top: 32px; 
+  border-radius: 50px 100px 200px 50px / 50px 20px 50px 50px;
+  z-index: 2;
+  transform: rotate(2deg);
+}
+
+.shuttle:before{
+    content: '';
+    width: 30px; 
+    height: 16px; 
+    border-radius: 0 0 3px 80%; 
+    background: #D85836;
+    position: absolute;
+    top: -10px;
+    right: -12px; 
+    transform: rotate(-250deg);
+}
+  
+.shuttle:after { 
+    content: '';
+    width: 40px;
+    height: 6px;
+    border-radius: 10px 90% 90% 10px / 10px 10px 10px 10px;
+    background: #A44229;
+    position: absolute;
+    left: 10px;
+    top: 56%;
+    z-index: 3;
+    transform: rotate(2deg);
+}
+  
+.nose {
+    left: -5px;
+    top: 37px;
+    width: 10px;
+    height: 10px;
+    background: #D85836;
+    border-radius: 100px 100px 100px 100px;
+    position: absolute;
+}
+
+.nose:before{
+    content: '';
+    width: 2px;
+    height: 10px;
+    background: #eee;
+    position: absolute;
+    top: -8px; 
+    right: 5px;
+    z-index: -1;
+}
+
+.nose:after{
+    content: '';
+    width: 2px;
+    height: 10px;
+    background: #eee;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    z-index: -1;
+}
+	
+
+.wings { 
+    content: '';
+    width: 45px;
+    height: 8px;
+    border-radius: 10px 90% 90% 10px / 10px 10px 10px 10px;
+    background: #A44229;
+    position: absolute;
+    left: 10px;
+    top: 20%;
+    z-index: 3;
+    transform: rotate(3deg);
+}
+
+.wings:before{
+    content: '';
+    width: 2px;
+    height: 22px;
+    background: #A44229;
+    position: absolute;
+    top: 8px; 
+    left: 5px;
+    z-index: 3;
+}
+
+.wings:after{
+    content: '';
+    width: 2px;
+    height: 22px;
+    background: #A44229;
+    position: absolute;
+	top: 8px;
+    right: 8px;
+    z-index: 3;
+}
+
+.cockpit {
+    left: 20px;
+    top: 25%;
+    width: 20px;
+    height: 20px;
+    background: #C5E6DE;
+    border-radius: 100px 100px 100px 100px;
+    position: absolute;
+	z-index: 2;
+}
+
+/**********************************************************************************************************************************************************************************************************************************/
+
+.rope {
+	content: '';
+	width: 40px; 
+	height: 2px; 
+	background: #eee;
+	position: absolute;
+	left: 90px;
+	top: 55%;
+}
+
+.rope:before{
+    content: '';
+    width: 40px; 
+    height: 2px; 
+    background: #eee;
+    position: absolute;
+    left: 35px;
+    top: -9px;
+    transform: rotate(-210deg);
+    z-index: 3;
+}
+.rope:after {
+    content: '';
+    width: 40px; 
+    height: 2px; 
+    background: #eee;
+    position: absolute;
+    left: 35px;
+    top: 9px;
+    transform: rotate(210deg);
+    z-index: 3;
+}
+
+.banner {
+	text-align: center;
+	line-height: 44px;
+	width: 300px;
+	height: 44px;
+	position: absolute;
+	top: 22px;
+	left: 160px;
+	background: Snow;
+	z-index: 3;
+}
+
+.triangle {
+	right: 0px;
+	border-bottom:22px solid transparent;
+	border-top:22px solid transparent;
+	border-right:22px solid #C5E6DE;
+	height:0;
+	z-index: 10;
+	position: absolute;
+}
+
+/**********************************************************************************************************************************************************************************************************************************/
+.sign {
+	content: '';
+	width: 30%;
+	height: 20%;
+	z-index: 3;
+	position: absolute;
+	background: #DF795E;
+	border-radius: 20px 20px 20px 20px;
+	border: 5px solid #A44229;
+	left: 35%;
+	bottom: 130px;
+}
+
+.sign:before{
+    content: '';
+    width: 20px;
+    height: 60px;
+    background: #A44229;
+    position: absolute;
+    bottom: -60px; 
+    left: 25px;
+    z-index: 2;
+}
+
+.sign:after{
+    content: '';
+    width: 20px;
+    height: 60px;
+    background: #A44229;
+    position: absolute;
+    bottom: -60px;
+    right: 25px;
+    z-index: 2;
+}
+
+.napis {
+	Font-family: "Trebuchet MS";
+	Text-align: Center;
+	font-size: 1.5em;
+}
+
+
+/**********************************************************************************************************************************************************************************************************************************/
+.hill {
+	content: '';
+	height: 120px;
+	z-index: 2;
+	position: relative;
+	background: #95C76D;
+}
+
+footer {
+	width: 100%;
+	z-index: 2;
+	position: absolute;
+	bottom: 0px;
+}
+
+/**********************************************************************************************************************************************************************************************************************************/
+.cloud {
+	content: '';
+	z-index: 2;
+	position: absolute;
+	background: #fff;
+	width: 50px;
+	height: 50px;
+	left:25%;
+	top:20%;
+	border-radius: 80% 80% 80% 80%;
+	animation: drift 160s linear infinite;
+}
+  
+.cloud:before {
+    content: '';
+    z-index: 2;
+    position: absolute;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    left:25%;
+    top:40%;
+    border-radius: 80% 80% 80% 80%;
+}
+
+.cloud:after {
+    content: '';
+    z-index: 2;
+    position: absolute;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    left:-30%;
+    top:40%;
+    border-radius: 80% 80% 80% 80%;
+}
+
+.clouds {
+	fill: rgba(255,255,255,0.7);
+	position: absolute;
+}
+
+#cloud0 {
+	z-index: 10;
+	left: -600px;
+	top: -20%;
+	animation: drift 72s linear infinite;
+}
+
+#cloud1 {
+	z-index: 10;
+	left: -500px;
+	top: -12%;
+	animation: drift-2 60s linear infinite;
+}
+
+#cloud2 {
+	z-index: 10;
+	left: -900px;
+	top: -8%;
+	animation: drift-3 80s linear infinite;
+}
+
+#cloud3 {
+	z-index: 10;
+	left: -500px;
+	top: 0%;
+	animation: drift-4 53s linear infinite;
+}
+
+
+/**********************************************************************************************************************************************************************************************************************************/
+/*Animacije*/
+/**********************************************************************************************************************************************************************************************************************************/
+@keyframes move {
+  100% {left: -1500px;}
+}
+
+@keyframes drift {
+  100% {
+     left: 1500px;
+  }
+}
+
+@keyframes drift-2 {
+  100% {
+     left: 1500px;
+  }
+}
+
+@keyframes drift-3 {
+  100% {
+     left: 1500px;
+  }
+}
+
+@keyframes drift-4 {
+  100% {
+     left: 1500px;
+  }
+}
+
+/**********************************************************************************************************************************************************************************************************************************/
+/*Manjši zasloni*/
+/**********************************************************************************************************************************************************************************************************************************/
+
+/***********************/
+/*1000px*/
+/***********************/
+@media only screen and (max-width: 1000px) {
+	/*
+	body {
+		background-color: red;
+	}
+	*/
+	
+	.airplane {
+		margin: -100px 0 0 500px;
+		animation: move 25s linear infinite;
+	}
+	
+	.sign {
+		content: '';
+		width: 36%;
+		height: 20%;
+		left: 32%;
+		bottom: 130px;
+	}
+}
+
+/***********************/
+/*850px*/
+/***********************/
+@media only screen and (max-width: 850px) {
+	/*
+	body {
+		background-color: magenta;
+	}
+	*/
+	
+	.airplane {
+		
+		margin: -100px 0 0 400px;
+		animation: move 23s linear infinite;
+	}
+	
+	.sign {
+		content: '';
+		width: 36%;
+		min-width: 250px;
+		height: 15%;
+		min-height: 120px;
+		left: 32%;
+		bottom: 130px;
+	}
+	
+	.napis {
+		font-size: 1.2em;
+	}
+}
+
+/***********************/
+/*700px*/
+/***********************/
+@media only screen and (max-width: 700px) {
+	/*
+	body {
+		background-color: orange;
+	}
+	*/
+	
+	.airplane {
+		
+		margin: -100px 0 0 400px;
+		animation: move 23s linear infinite;
+	}
+	
+	.sign {
+		content: '';
+		width: 36%;
+		min-width: 250px;
+		height: 15%;
+		min-height: 120px;
+		left: 32%;
+		bottom: 130px;
+	}
+	
+	.napis {
+		font-size: 1.05em;
+	}
+  
+}
+
+/***********************/
+/*500px*/
+/***********************/
+@media only screen and (max-width: 500px) {
+	/*
+	body {
+		background-color: hotpink;
+	}
+	*/
+	
+	.airplane {
+		
+		margin: -100px 0 0 200px;
+		animation: move 23s linear infinite;
+	}
+	
+	.sign {
+		content: '';
+		width: 36%;
+		min-width: 250px;
+		height: 15%;
+		min-height: 120px;
+		left: 20%;
+		bottom: 130px;
+	}
+	
+	.napis {
+		font-size: 1.05em;
+	}
+	
+	html {
+		max-width: 500px
+	}
+
+	body {
+		max-width: 500px
+	}
+  
+}
+		</style>
+	</head>
+	<body>
+		
+		<div class="airplane">
+			<i class="shuttle"></i>
+			<i class="nose"></i>
+			<i class="wings"></i>
+			<i class="cockpit"></i>
+			<i class="rope"></i>
+			<i class="banner">
+			Visit airplaneboii.github.io
+			<i class="triangle"></i>
+			</i>
+			
+			<script>
+				// Set the date we're counting down to
+				var countDownDate = new Date("Jan 1, 2023 00:00:00").getTime();
+
+				// Update the count down every 1 second
+				var x = setInterval(odstevanje, 1000);
+				
+				function odstevanje() {
+	
+					// Get todays date and time
+					var now = new Date().getTime();
+    
+					// Find the distance between now and the count down date
+					var distance = countDownDate - now;
+    
+					// Time calculations for days, hours, minutes and seconds
+					var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+					var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+					var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+					// Output the result in an element with id="demo"
+					if(days < 10) days = "0" + days
+					if(hours < 10) hours = "0" + hours
+					if(minutes < 10) minutes = "0" + minutes
+					if(seconds < 10) seconds = "0" + seconds
+					document.getElementById("demo").innerHTML = days + "d&nbsp:&nbsp" + hours + "h&nbsp:&nbsp"
+					+ minutes + "m&nbsp:&nbsp" + seconds + "s";
+				
+					// If the count down is over, write some text 
+					if (distance < 1000) {
+						clearInterval(x);
+						document.getElementById("demo").innerHTML = "SREČNO 2023!"; //Vam želita brata Vogrin
+						document.getElementById("fire").style.opacity = "1";
+					} else {
+						document.getElementById("ban").innerHTML = "Do novega leta nas loči še:";
+					}
+				}		
+			</script>
+				
+				
+				
+				
+				
+		</div>
+			<svg id="cloud0" class="clouds" width="512" height="512"><path id="cloud-icon" d="M406.1 227.63c-8.23-103.65-144.71-137.8-200.49-49.05 -36.18-20.46-82.33 3.61-85.22 45.9C80.73 229.34 50 263.12 50 304.1c0 44.32 35.93 80.25 80.25 80.25h251.51c44.32 0 80.25-35.93 80.25-80.25C462 268.28 438.52 237.94 406.1 227.63z"/></svg>
+			<svg id="cloud1" class="clouds" width="512" height="512"><path id="cloud-icon" d="M406.1 227.63c-8.23-103.65-144.71-137.8-200.49-49.05 -36.18-20.46-82.33 3.61-85.22 45.9C80.73 229.34 50 263.12 50 304.1c0 44.32 35.93 80.25 80.25 80.25h251.51c44.32 0 80.25-35.93 80.25-80.25C462 268.28 438.52 237.94 406.1 227.63z"/></svg>
+			<svg id="cloud2" class="clouds" width="512" height="512"><path id="cloud-icon" d="M406.1 227.63c-8.23-103.65-144.71-137.8-200.49-49.05 -36.18-20.46-82.33 3.61-85.22 45.9C80.73 229.34 50 263.12 50 304.1c0 44.32 35.93 80.25 80.25 80.25h251.51c44.32 0 80.25-35.93 80.25-80.25C462 268.28 438.52 237.94 406.1 227.63z"/></svg>
+			<svg id="cloud3" class="clouds" width="512" height="512"><path id="cloud-icon" d="M406.1 227.63c-8.23-103.65-144.71-137.8-200.49-49.05 -36.18-20.46-82.33 3.61-85.22 45.9C80.73 229.34 50 263.12 50 304.1c0 44.32 35.93 80.25 80.25 80.25h251.51c44.32 0 80.25-35.93 80.25-80.25C462 268.28 438.52 237.94 406.1 227.63z"/></svg>
+			
+			
+			
+		<div class="sign">
+				<p id="ban" class="napis"></p><br>
+				<div id="demo" class="napis"></div>
+		</div>
+			
+		<footer>
+			<div class="hill"></div>
+		</footer>
+		
+	</body>
+</html>
