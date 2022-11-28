@@ -549,7 +549,7 @@ footer {
 @media only screen and (max-width: 800px) {
 	.blog_main {
 		width: 100%;
-		padding: 0px;
+		padding: 0px 0px 2em;
 	}
 
 	.blog_post_all {
