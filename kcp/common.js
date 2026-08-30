@@ -1,3 +1,8 @@
+/* =========================================================================
+   common.js — souporabljene pomožne funkcije za iskalnik in urejevalnik.
+   Brez odvisnosti, čisti vanilla JS (deluje kot statična stran na GH Pages).
+   ========================================================================= */
+
 /** Iz seznama objektov naredi Map po polju "id" — O(1) iskanje namesto find(). */
 function indexById(list) {
     const m = new Map();
