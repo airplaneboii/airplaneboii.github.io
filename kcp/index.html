@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog cerkvenih pesmi</title>
+    <meta name="description" content="Iskalnik po javno objavljenih skladbah za orgle in pevske zbore slovenskih in tujih avtorjev, s povezavami na izvirne PDF-je.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-header__inner">
+            <div>
+                <h1>Katalog cerkvenih pesmi</h1>
+                <div class="ornament">▫ ▫ ▫ ▫</div>
+                <p class="subtitle">Kazalo javno objavljenih skladb za orgle in pevske zbore slovenskih in tujih avtorjev.</p>
+                <p class="subtitle">Trenutno na voljo: priloge iz Cerkvenega glasbenika (1878 - 1926).</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="card filter-panel" aria-label="Filtri iskanja">
+            <div class="filter-row">
+                <div>
+                    <label class="field-label" for="searchInput">Iskanje po besedilu</label>
+                    <input type="text" id="searchInput" class="text-input" placeholder="Naslov, avtor, opomba ali izvirna navedba…" autocomplete="off">
+                </div>
+                <div>
+                    <label class="field-label" for="sortBy">Razvrsti po</label>
+                    <select id="sortBy" class="select-input">
+                        <option value="title-asc">Naslovu (A–Ž)</option>
+                        <option value="title-desc">Naslovu (Ž–A)</option>
+                        <option value="author-asc">Avtorju (A–Ž)</option>
+                        <option value="year-asc">Letu izida (najstarejše)</option>
+                        <option value="year-desc">Letu izida (najnovejše)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-grid">
+                <div class="multiselect">
+                    <label class="field-label">Avtorji</label>
+                    <button type="button" id="authorBtn" class="multiselect-btn">
+                        <span id="authorLabel">Vsi avtorji</span><span class="chev">▼</span>
+                    </button>
+                    <div id="authorPanel" class="multiselect-panel" hidden></div>
+                </div>
+                <div class="multiselect">
+                    <label class="field-label">Liturgični čas</label>
+                    <button type="button" id="timeBtn" class="multiselect-btn">
+                        <span id="timeLabel">Vsi časi</span><span class="chev">▼</span>
+                    </button>
+                    <div id="timePanel" class="multiselect-panel" hidden></div>
+                </div>
+                <div class="multiselect">
+                    <label class="field-label">Zasedba</label>
+                    <button type="button" id="voicingBtn" class="multiselect-btn">
+                        <span id="voicingLabel">Vse zasedbe</span><span class="chev">▼</span>
+                    </button>
+                    <div id="voicingPanel" class="multiselect-panel" hidden></div>
+                </div>
+                <div class="multiselect">
+                    <label class="field-label">Jezik besedila</label>
+                    <button type="button" id="langBtn" class="multiselect-btn">
+                        <span id="langLabel">Vsi jeziki</span><span class="chev">▼</span>
+                    </button>
+                    <div id="langPanel" class="multiselect-panel" hidden></div>
+                </div>
+                <div class="multiselect">
+                    <label class="field-label">PDF vir / letnik</label>
+                    <button type="button" id="sourceBtn" class="multiselect-btn">
+                        <span id="sourceLabel">Vsi viri</span><span class="chev">▼</span>
+                    </button>
+                    <div id="sourcePanel" class="multiselect-panel" hidden></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="toolbar">
+            <span>Število zadetkov: <strong id="resultCount">0</strong></span>
+            <div id="activeChipsWrap" style="display:contents"></div>
+            <button id="resetFilters" class="link-reset" type="button">Ponastavi filtre</button>
+        </div>
+
+        <div id="activeChips" class="active-chips"></div>
+
+        <div id="resultsContainer" class="results"></div>
+
+        <div id="paginationWrap" class="pagination" hidden>
+            <button id="prevPage" class="btn-page" type="button">← Prejšnja</button>
+            <span id="pageInfo"></span>
+            <button id="nextPage" class="btn-page" type="button">Naslednja →</button>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        Podatki pripravljeni po kazalih prilog "Cerkvenega glasbenika" (1878–1910, 1911–1926). PDF viri: dLib.si.
+    </footer>
+
+    <!-- Modalno okno za podatke o avtorju -->
+    <div id="authorModal" class="modal-backdrop" hidden>
+        <div class="modal-box">
+            <button class="modal-close" id="closeAuthorModal" aria-label="Zapri">&times;</button>
+            <div id="authorModalContent"></div>
+        </div>
+    </div>
+
+    <script src="js/skladbe.js"></script>
+    <script src="js/viri.js"></script>
+    <script src="js/avtorji.js"></script>
+    <script src="js/liturgicni-casi.js"></script>
+    <script src="common.js"></script>
+    <script>
+        'use strict';
+
+        const PAGE_SIZE = 60;
+        let currentPage = 1;
+
+        const authorsMap = indexById(window.avtorjiDatabase || []);
+        const sourcesMap = indexById(window.viriDatabase || []);
+        const allSongs = window.skladbeDatabase || [];
+
+        const selected = {
+            authors: new Set(),
+            times: new Set(),
+            voicings: new Set(),
+            languages: new Set(),
+            sources: new Set(),
+        };
+
+        function uniqueSorted(values) {
+            return [...new Set(values.filter(v => v !== null && v !== undefined && v !== ''))].sort((a, b) =>
+                String(a).localeCompare(String(b), 'sl'));
+        }
+
+        function buildFilterOptions() {
+            const authorOptions = [...authorsMap.values()]
+                .filter(a => allSongs.some(s => s.authorId === a.id))
+                .map(a => ({ value: a.id, label: authorDisplayName(a) }))
+                .sort((a, b) => a.label.localeCompare(b.label, 'sl'));
+
+            const timeOptions = uniqueSorted(allSongs.map(s => s.liturgicalTime)).map(v => ({ value: v, label: v }));
+            const voicingOptions = uniqueSorted(allSongs.map(s => s.voicing)).map(v => ({ value: v, label: v }));
+            const langOptions = uniqueSorted(allSongs.map(s => s.language)).map(v => ({ value: v, label: v }));
+
+            const usedSourceIds = new Set(allSongs.map(s => s.sourceId).filter(Boolean));
+            const sourceOptions = [...sourcesMap.values()]
+                .filter(v => usedSourceIds.has(v.id))
+                .sort((a, b) => a.year - b.year)
+                .map(v => ({ value: v.id, label: `${v.year} — ${v.edition}` }));
+
+            createMultiSelect({ panelId: 'authorPanel', btnId: 'authorBtn', labelId: 'authorLabel', defaultLabel: 'Vsi avtorji', options: authorOptions, selectedSet: selected.authors, onChange: applyFilters });
+            createMultiSelect({ panelId: 'timePanel', btnId: 'timeBtn', labelId: 'timeLabel', defaultLabel: 'Vsi časi', options: timeOptions, selectedSet: selected.times, onChange: applyFilters });
+            createMultiSelect({ panelId: 'voicingPanel', btnId: 'voicingBtn', labelId: 'voicingLabel', defaultLabel: 'Vse zasedbe', options: voicingOptions, selectedSet: selected.voicings, onChange: applyFilters });
+            createMultiSelect({ panelId: 'langPanel', btnId: 'langBtn', labelId: 'langLabel', defaultLabel: 'Vsi jeziki', options: langOptions, selectedSet: selected.languages, onChange: applyFilters });
+            createMultiSelect({ panelId: 'sourcePanel', btnId: 'sourceBtn', labelId: 'sourceLabel', defaultLabel: 'Vsi viri', options: sourceOptions, selectedSet: selected.sources, onChange: applyFilters });
+        }
+
+        function getFiltered() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+
+            return allSongs.filter(song => {
+                if (query) {
+                    const author = authorsMap.get(song.authorId);
+                    const haystack = [
+                        song.title, authorDisplayName(author), song.notes, song.creditAs, song.category
+                    ].filter(Boolean).join(' ').toLowerCase();
+                    if (!haystack.includes(query)) return false;
+                }
+                if (selected.authors.size && !selected.authors.has(song.authorId)) return false;
+                if (selected.times.size && !selected.times.has(song.liturgicalTime)) return false;
+                if (selected.voicings.size && !selected.voicings.has(song.voicing)) return false;
+                if (selected.languages.size && !selected.languages.has(song.language)) return false;
+                if (selected.sources.size && !selected.sources.has(song.sourceId)) return false;
+                return true;
+            });
+        }
+
+        function sortSongs(list) {
+            const sortBy = document.getElementById('sortBy').value;
+            const withAuthor = (s) => authorDisplayName(authorsMap.get(s.authorId));
+            const withYear = (s) => (sourcesMap.get(s.sourceId)?.year) ?? 0;
+            const copy = [...list];
+            copy.sort((a, b) => {
+                switch (sortBy) {
+                    case 'title-desc': return (b.title || '').localeCompare(a.title || '', 'sl');
+                    case 'author-asc': return withAuthor(a).localeCompare(withAuthor(b), 'sl');
+                    case 'year-asc': return withYear(a) - withYear(b);
+                    case 'year-desc': return withYear(b) - withYear(a);
+                    case 'title-asc':
+                    default: return (a.title || '').localeCompare(b.title || '', 'sl');
+                }
+            });
+            return copy;
+        }
+
+        function renderChips() {
+            const wrap = document.getElementById('activeChips');
+            const chips = [];
+            const addChips = (set, getLabel, kind) => {
+                set.forEach(val => chips.push({ kind, val, label: getLabel(val) }));
+            };
+            addChips(selected.authors, v => authorDisplayName(authorsMap.get(v)), 'authors');
+            addChips(selected.times, v => v, 'times');
+            addChips(selected.voicings, v => v, 'voicings');
+            addChips(selected.languages, v => v, 'languages');
+            addChips(selected.sources, v => sourcesMap.get(v)?.year ?? v, 'sources');
+
+            if (chips.length === 0) { wrap.innerHTML = ''; return; }
+            wrap.innerHTML = chips.map(c => `
+                <span class="chip" data-kind="${c.kind}" data-val="${escapeHtml(String(c.val))}">
+                    ${escapeHtml(String(c.label))}
+                    <button type="button" aria-label="Odstrani filter">&times;</button>
+                </span>
+            `).join('');
+            wrap.querySelectorAll('.chip button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const chip = btn.closest('.chip');
+                    const kind = chip.dataset.kind;
+                    const raw = chip.dataset.val;
+                    const set = selected[kind];
+                    const match = [...set].find(v => String(v) === raw);
+                    set.delete(match !== undefined ? match : raw);
+                    buildFilterOptions();
+                    applyFilters();
+                });
+            });
+        }
+
+        function songCardHtml(song) {
+            const author = authorsMap.get(song.authorId);
+            const source = song.sourceId ? sourcesMap.get(song.sourceId) : null;
+            const color = (window.liturgicalColors && window.liturgicalColors[song.liturgicalTime]) || '#8c7f6d';
+            const titleClass = isLatinLanguage(song.language) ? 'song-title is-latin' : 'song-title';
+
+            const provenanceBits = [];
+            if (song.creditAs) provenanceBits.push(escapeHtml(song.creditAs));
+            if (song.issue) provenanceBits.push(`št. ${escapeHtml(song.entryNo)}, ${escapeHtml(song.issue)}`);
+            else if (song.entryNo) provenanceBits.push(`št. ${escapeHtml(song.entryNo)}`);
+
+            return `
+                <article class="song-card" style="--card-accent:${color}">
+                    <div class="song-main">
+                        <div class="song-badges">
+                            <span class="badge" style="background:${color}18;color:${color};border:1px solid ${color}55">${escapeHtml(song.liturgicalTime)}</span>
+                            <span class="badge badge-voicing">${escapeHtml(song.voicing || '—')}</span>
+                            <span class="badge badge-lang">${escapeHtml(song.language)}</span>
+                        </div>
+                        <h3 class="${titleClass}">${escapeHtml(song.title || '(brez naslova)')}</h3>
+                        <div class="song-meta">
+                            <span>Avtor:
+                                <button class="author-link" data-author-id="${song.authorId}">${escapeHtml(authorDisplayName(author))}</button>
+                            </span>
+                            ${song.notes ? `<span>• <span class="song-notes">${escapeHtml(song.notes)}</span></span>` : ''}
+                        </div>
+                        ${provenanceBits.length ? `<div class="song-provenance">${provenanceBits.join(' · ')}</div>` : ''}
+                    </div>
+                    ${source ? `
+                        <div class="song-action">
+                            <a class="btn-open" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">
+                                Odpri PDF (${escapeHtml(source.year)}) →
+                            </a>
+                        </div>` : `<div class="song-action"><span class="badge badge-voicing">Vir ni znan</span></div>`}
+                </article>
+            `;
+        }
+
+        function applyFilters() {
+            currentPage = 1;
+            renderChips();
+            renderResults();
+        }
+
+        function renderResults() {
+            const filtered = sortSongs(getFiltered());
+            document.getElementById('resultCount').textContent = filtered.length;
+
+            const container = document.getElementById('resultsContainer');
+            const pagWrap = document.getElementById('paginationWrap');
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="empty-state"><span class="glyph">🎼</span>Ni najdenih pesmi z izbranimi kriteriji.</div>`;
+                pagWrap.hidden = true;
+                return;
+            }
+
+            const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+            currentPage = Math.min(currentPage, totalPages);
+            const start = (currentPage - 1) * PAGE_SIZE;
+            const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+            container.innerHTML = pageItems.map(songCardHtml).join('');
+            container.querySelectorAll('.author-link').forEach(btn => {
+                btn.addEventListener('click', () => openAuthorModal(parseInt(btn.dataset.authorId, 10)));
+            });
+
+            if (totalPages > 1) {
+                pagWrap.hidden = false;
+                document.getElementById('pageInfo').textContent = `Stran ${currentPage} / ${totalPages}`;
+                document.getElementById('prevPage').disabled = currentPage <= 1;
+                document.getElementById('nextPage').disabled = currentPage >= totalPages;
+            } else {
+                pagWrap.hidden = true;
+            }
+        }
+
+        function openAuthorModal(authorId) {
+            const author = authorsMap.get(authorId);
+            const content = document.getElementById('authorModalContent');
+
+            if (!author) {
+                content.innerHTML = `
+                    <div class="modal-eyebrow">Avtor</div>
+                    <h3>Neznan avtor</h3>
+                    <p class="modal-line">Za to skladbo v izvirniku ni naveden avtor (ali gre za anonimno delo).</p>
+                `;
+            } else {
+                const years = (author.birthYear || author.deathYear)
+                    ? `<span class="years">(${author.birthYear || '?'}–${author.deathYear || '?'})</span>` : '';
+                const worksByAuthor = allSongs.filter(s => s.authorId === authorId);
+                content.innerHTML = `
+                    <div class="modal-eyebrow">Podatki o avtorju</div>
+                    <h3>${escapeHtml(authorDisplayName(author))} ${years}</h3>
+                    ${author.occupation ? `<p class="modal-line"><strong>Poklic:</strong> ${escapeHtml(author.occupation)}</p>` : ''}
+                    ${author.description ? `<p class="modal-desc">${escapeHtml(author.description)}</p>` : ''}
+                    <p class="modal-line" style="margin-top:.75rem;"><strong>Skladb v katalogu:</strong> ${worksByAuthor.length}</p>
+                `;
+            }
+            document.getElementById('authorModal').hidden = false;
+        }
+
+        function resetAllFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('sortBy').value = 'title-asc';
+            Object.values(selected).forEach(set => set.clear());
+            buildFilterOptions();
+            applyFilters();
+        }
+
+        // --- dogodki ---
+        document.getElementById('searchInput').addEventListener('input', debounce(applyFilters, 120));
+        document.getElementById('sortBy').addEventListener('change', renderResults);
+        document.getElementById('resetFilters').addEventListener('click', resetAllFilters);
+        document.getElementById('closeAuthorModal').addEventListener('click', () => document.getElementById('authorModal').hidden = true);
+        document.getElementById('authorModal').addEventListener('click', (e) => { if (e.target.id === 'authorModal') e.currentTarget.hidden = true; });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.getElementById('authorModal').hidden = true; });
+        document.getElementById('prevPage').addEventListener('click', () => { currentPage--; renderResults(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        document.getElementById('nextPage').addEventListener('click', () => { currentPage++; renderResults(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+        // --- zagon ---
+        buildFilterOptions();
+        applyFilters();
+    </script>
+</body>
+</html>
