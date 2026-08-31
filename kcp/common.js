@@ -103,7 +103,14 @@ function createMultiSelect({ panelId, btnId, labelId, defaultLabel, options, sel
         const filterInput = panel.querySelector('[data-role="ms-filter"]');
         if (filterInput) {
             filterInput.value = filterText;
-            filterInput.addEventListener('input', () => renderPanel(filterInput.value));
+            filterInput.addEventListener('input', () => {
+                const ft = filterInput.value.trim().toLowerCase();
+                        
+                panel.querySelectorAll('.ms-option').forEach(option => {
+                    const text = option.querySelector('span').textContent.toLowerCase();
+                    option.style.display = text.includes(ft) ? '' : 'none';
+                });
+            });
             filterInput.addEventListener('click', e => e.stopPropagation());
         }
         panel.querySelectorAll('input[type="checkbox"]').forEach(cb => {
