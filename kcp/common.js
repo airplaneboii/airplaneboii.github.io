@@ -72,71 +72,99 @@ function isLatinLanguage(language) {
     return (language || '').toLowerCase().startsWith('latin');
 }
 
-/** Generična funkcija za "multiselect" spustni seznam s checkboxi in iskanjem. */
-function createMultiSelect({ panelId, btnId, labelId, defaultLabel, options, selectedSet, onChange }) {
-    const panel = document.getElementById(panelId);
-    const btn = document.getElementById(btnId);
-    const label = document.getElementById(labelId);
+/** Generičen kombiniran vnos "tipkaj in izberi" (combobox z več izbirami in oznakami/chips).
+ *  Uporabnik začne tipkati, pod poljem se prikažejo ujemajoče se možnosti; klik/Enter doda
+ *  izbiro kot odstranljiv "chip" znotraj okvirja, tipkanje se nato počisti za naslednji vnos. */
+function createComboFilter({ boxId, inputId, suggestionsId, options, selectedSet, onChange, placeholder, maxSuggestions = 40 }) {
+    const box = document.getElementById(boxId);
+    const input = document.getElementById(inputId);
+    const sugg = document.getElementById(suggestionsId);
+    if (placeholder) input.placeholder = placeholder;
 
-    function renderLabel() {
-        if (selectedSet.size === 0) label.textContent = defaultLabel;
-        else if (selectedSet.size === 1) label.textContent = options.find(o => String(o.value) === String([...selectedSet][0]))?.label || defaultLabel;
-        else label.textContent = `Izbranih: ${selectedSet.size}`;
+    function labelFor(value) {
+        const opt = options.find(o => String(o.value) === String(value));
+        return opt ? opt.label : String(value);
     }
 
-    function renderPanel(filterText = '') {
-        const ft = filterText.trim().toLowerCase();
-        const visible = ft ? options.filter(o => o.label.toLowerCase().includes(ft)) : options;
-        const searchHtml = options.length > 8
-            ? `<input type="text" class="ms-search" placeholder="Filtriraj..." data-role="ms-filter">`
-            : '';
-        if (visible.length === 0) {
-            panel.innerHTML = searchHtml + `<div class="ms-empty">Ni zadetkov.</div>`;
-        } else {
-            panel.innerHTML = searchHtml + visible.map(o => `
-                <label class="ms-option">
-                    <input type="checkbox" value="${escapeHtml(String(o.value))}" ${selectedSet.has(o.value) ? 'checked' : ''}>
-                    <span>${escapeHtml(o.label)}</span>
-                </label>
-            `).join('');
-        }
-        const filterInput = panel.querySelector('[data-role="ms-filter"]');
-        if (filterInput) {
-            filterInput.value = filterText;
-            filterInput.addEventListener('input', () => {
-                const ft = filterInput.value.trim().toLowerCase();
-                        
-                panel.querySelectorAll('.ms-option').forEach(option => {
-                    const text = option.querySelector('span').textContent.toLowerCase();
-                    option.style.display = text.includes(ft) ? '' : 'none';
-                });
+    function renderChips() {
+        box.querySelectorAll('.combo-chip').forEach(c => c.remove());
+        [...selectedSet].forEach(val => {
+            const chip = document.createElement('span');
+            chip.className = 'combo-chip';
+            chip.innerHTML = `<span>${escapeHtml(labelFor(val))}</span><button type="button" aria-label="Odstrani ${escapeHtml(labelFor(val))}">&times;</button>`;
+            chip.querySelector('button').addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectedSet.delete(val);
+                renderChips();
+                onChange();
             });
-            filterInput.addEventListener('click', e => e.stopPropagation());
+            box.insertBefore(chip, input);
+        });
+    }
+
+    function closeSuggestions() {
+        sugg.hidden = true;
+        sugg.innerHTML = '';
+    }
+
+    function renderSuggestions(filterText) {
+        const ft = filterText.trim().toLowerCase();
+        const available = options.filter(o => !selectedSet.has(o.value));
+        const matches = ft ? available.filter(o => o.label.toLowerCase().includes(ft)) : available;
+        const shown = matches.slice(0, maxSuggestions);
+
+        if (shown.length === 0) {
+            sugg.innerHTML = `<div class="combo-empty">Ni zadetkov.</div>`;
+        } else {
+            sugg.innerHTML = shown.map((o, i) => `
+                <div class="combo-suggestion-item${i === 0 ? ' is-active' : ''}" data-val="${escapeHtml(String(o.value))}">${escapeHtml(o.label)}</div>
+            `).join('') + (matches.length > shown.length
+                ? `<div class="combo-empty">… in še ${matches.length - shown.length} — nadaljuj s tipkanjem za zožitev</div>` : '');
         }
-        panel.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-            cb.addEventListener('change', () => {
-                // vrednosti so lahko številske (id-ji) ali besedilne
-                const raw = cb.value;
-                const match = options.find(o => String(o.value) === raw);
-                const val = match ? match.value : raw;
-                if (cb.checked) selectedSet.add(val); else selectedSet.delete(val);
-                renderLabel();
+        sugg.hidden = false;
+
+        sugg.querySelectorAll('.combo-suggestion-item').forEach(item => {
+            // mousedown (ne click), da se sproži PRED "blur" dogodkom na polju
+            item.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                const raw = item.dataset.val;
+                const opt = options.find(o => String(o.value) === raw);
+                selectedSet.add(opt ? opt.value : raw);
+                input.value = '';
+                renderChips();
+                renderSuggestions('');
                 onChange();
             });
         });
     }
 
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isHidden = panel.hasAttribute('hidden');
-        document.querySelectorAll('.multiselect-panel').forEach(p => p.setAttribute('hidden', ''));
-        if (isHidden) { renderPanel(); panel.removeAttribute('hidden'); }
+    input.addEventListener('input', () => renderSuggestions(input.value));
+    input.addEventListener('focus', () => renderSuggestions(input.value));
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const active = sugg.querySelector('.combo-suggestion-item');
+            if (active) active.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }));
+        } else if (e.key === 'Backspace' && input.value === '' && selectedSet.size) {
+            const last = [...selectedSet][selectedSet.size - 1];
+            selectedSet.delete(last);
+            renderChips();
+            onChange();
+        } else if (e.key === 'Escape') {
+            closeSuggestions();
+            input.blur();
+        }
     });
 
     document.addEventListener('click', (e) => {
-        if (!panel.contains(e.target) && !btn.contains(e.target)) panel.setAttribute('hidden', '');
+        if (!box.contains(e.target) && !sugg.contains(e.target)) closeSuggestions();
     });
 
-    renderLabel();
-    return { refresh: (newOptions) => { if (newOptions) options = newOptions; renderLabel(); renderPanel(); } };
+    renderChips();
+
+    return {
+        refreshOptions(newOptions) { options = newOptions; },
+        rerenderChips() { renderChips(); },
+        clearInput() { input.value = ''; closeSuggestions(); },
+    };
 }

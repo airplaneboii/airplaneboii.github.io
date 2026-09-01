@@ -40,57 +40,55 @@
             </div>
 
             <div class="filter-grid">
-                <div class="multiselect">
-                    <label class="field-label">Avtorji</label>
-                    <button type="button" id="authorBtn" class="multiselect-btn">
-                        <span id="authorLabel">Vsi avtorji</span><span class="chev">▼</span>
-                    </button>
-                    <div id="authorPanel" class="multiselect-panel" hidden></div>
+                <div class="combo">
+                    <label class="field-label" for="authorInput">Avtorji</label>
+                    <div class="combo-box" id="authorBox">
+                        <input type="text" id="authorInput" class="combo-input" placeholder="Začni tipkati ime avtorja…" autocomplete="off">
+                    </div>
+                    <div id="authorSuggestions" class="combo-suggestions" hidden></div>
                 </div>
-                <div class="multiselect">
-                    <label class="field-label">Liturgični čas</label>
-                    <button type="button" id="timeBtn" class="multiselect-btn">
-                        <span id="timeLabel">Vsi časi</span><span class="chev">▼</span>
-                    </button>
-                    <div id="timePanel" class="multiselect-panel" hidden></div>
+                <div class="combo">
+                    <label class="field-label" for="timeInput">Liturgični čas</label>
+                    <div class="combo-box" id="timeBox">
+                        <input type="text" id="timeInput" class="combo-input" placeholder="Npr. Advent, Postni čas…" autocomplete="off">
+                    </div>
+                    <div id="timeSuggestions" class="combo-suggestions" hidden></div>
                 </div>
-                <div class="multiselect">
-                    <label class="field-label">Zasedba</label>
-                    <button type="button" id="voicingBtn" class="multiselect-btn">
-                        <span id="voicingLabel">Vse zasedbe</span><span class="chev">▼</span>
-                    </button>
-                    <div id="voicingPanel" class="multiselect-panel" hidden></div>
+                <div class="combo">
+                    <label class="field-label" for="voicingInput">Zasedba</label>
+                    <div class="combo-box" id="voicingBox">
+                        <input type="text" id="voicingInput" class="combo-input" placeholder="Npr. mešani zbor…" autocomplete="off">
+                    </div>
+                    <div id="voicingSuggestions" class="combo-suggestions" hidden></div>
                 </div>
-                <div class="multiselect">
-                    <label class="field-label">Jezik besedila</label>
-                    <button type="button" id="langBtn" class="multiselect-btn">
-                        <span id="langLabel">Vsi jeziki</span><span class="chev">▼</span>
-                    </button>
-                    <div id="langPanel" class="multiselect-panel" hidden></div>
+                <div class="combo">
+                    <label class="field-label" for="langInput">Jezik besedila</label>
+                    <div class="combo-box" id="langBox">
+                        <input type="text" id="langInput" class="combo-input" placeholder="Latinsko, Slovensko…" autocomplete="off">
+                    </div>
+                    <div id="langSuggestions" class="combo-suggestions" hidden></div>
                 </div>
-                <div class="multiselect">
-                    <label class="field-label">PDF vir / letnik</label>
-                    <button type="button" id="sourceBtn" class="multiselect-btn">
-                        <span id="sourceLabel">Vsi viri</span><span class="chev">▼</span>
-                    </button>
-                    <div id="sourcePanel" class="multiselect-panel" hidden></div>
+                <div class="combo">
+                    <label class="field-label" for="sourceInput">PDF vir / letnik</label>
+                    <div class="combo-box" id="sourceBox">
+                        <input type="text" id="sourceInput" class="combo-input" placeholder="Začni tipkati letnico…" autocomplete="off">
+                    </div>
+                    <div id="sourceSuggestions" class="combo-suggestions" hidden></div>
                 </div>
             </div>
         </section>
 
         <div class="toolbar">
             <span>Število zadetkov: <strong id="resultCount">0</strong></span>
-            <div id="activeChipsWrap" style="display:contents"></div>
             <button id="resetFilters" class="link-reset" type="button">Ponastavi filtre</button>
         </div>
-
-        <div id="activeChips" class="active-chips"></div>
 
         <div id="resultsContainer" class="results"></div>
 
         <div id="paginationWrap" class="pagination" hidden>
             <button id="prevPage" class="btn-page" type="button">← Prejšnja</button>
             <span id="pageInfo"></span>
+
             <button id="nextPage" class="btn-page" type="button">Naslednja →</button>
         </div>
     </main>
@@ -151,11 +149,13 @@
                 .sort((a, b) => a.year - b.year)
                 .map(v => ({ value: v.id, label: `${v.year} — ${v.edition}` }));
 
-            createMultiSelect({ panelId: 'authorPanel', btnId: 'authorBtn', labelId: 'authorLabel', defaultLabel: 'Vsi avtorji', options: authorOptions, selectedSet: selected.authors, onChange: applyFilters });
-            createMultiSelect({ panelId: 'timePanel', btnId: 'timeBtn', labelId: 'timeLabel', defaultLabel: 'Vsi časi', options: timeOptions, selectedSet: selected.times, onChange: applyFilters });
-            createMultiSelect({ panelId: 'voicingPanel', btnId: 'voicingBtn', labelId: 'voicingLabel', defaultLabel: 'Vse zasedbe', options: voicingOptions, selectedSet: selected.voicings, onChange: applyFilters });
-            createMultiSelect({ panelId: 'langPanel', btnId: 'langBtn', labelId: 'langLabel', defaultLabel: 'Vsi jeziki', options: langOptions, selectedSet: selected.languages, onChange: applyFilters });
-            createMultiSelect({ panelId: 'sourcePanel', btnId: 'sourceBtn', labelId: 'sourceLabel', defaultLabel: 'Vsi viri', options: sourceOptions, selectedSet: selected.sources, onChange: applyFilters });
+            return {
+                authors: createComboFilter({ boxId: 'authorBox', inputId: 'authorInput', suggestionsId: 'authorSuggestions', options: authorOptions, selectedSet: selected.authors, onChange: applyFilters }),
+                times: createComboFilter({ boxId: 'timeBox', inputId: 'timeInput', suggestionsId: 'timeSuggestions', options: timeOptions, selectedSet: selected.times, onChange: applyFilters }),
+                voicings: createComboFilter({ boxId: 'voicingBox', inputId: 'voicingInput', suggestionsId: 'voicingSuggestions', options: voicingOptions, selectedSet: selected.voicings, onChange: applyFilters }),
+                languages: createComboFilter({ boxId: 'langBox', inputId: 'langInput', suggestionsId: 'langSuggestions', options: langOptions, selectedSet: selected.languages, onChange: applyFilters }),
+                sources: createComboFilter({ boxId: 'sourceBox', inputId: 'sourceInput', suggestionsId: 'sourceSuggestions', options: sourceOptions, selectedSet: selected.sources, onChange: applyFilters }),
+            };
         }
 
         function getFiltered() {
@@ -196,38 +196,6 @@
             return copy;
         }
 
-        function renderChips() {
-            const wrap = document.getElementById('activeChips');
-            const chips = [];
-            const addChips = (set, getLabel, kind) => {
-                set.forEach(val => chips.push({ kind, val, label: getLabel(val) }));
-            };
-            addChips(selected.authors, v => authorDisplayName(authorsMap.get(v)), 'authors');
-            addChips(selected.times, v => v, 'times');
-            addChips(selected.voicings, v => v, 'voicings');
-            addChips(selected.languages, v => v, 'languages');
-            addChips(selected.sources, v => sourcesMap.get(v)?.year ?? v, 'sources');
-
-            if (chips.length === 0) { wrap.innerHTML = ''; return; }
-            wrap.innerHTML = chips.map(c => `
-                <span class="chip" data-kind="${c.kind}" data-val="${escapeHtml(String(c.val))}">
-                    ${escapeHtml(String(c.label))}
-                    <button type="button" aria-label="Odstrani filter">&times;</button>
-                </span>
-            `).join('');
-            wrap.querySelectorAll('.chip button').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const chip = btn.closest('.chip');
-                    const kind = chip.dataset.kind;
-                    const raw = chip.dataset.val;
-                    const set = selected[kind];
-                    const match = [...set].find(v => String(v) === raw);
-                    set.delete(match !== undefined ? match : raw);
-                    buildFilterOptions();
-                    applyFilters();
-                });
-            });
-        }
 
         function songCardHtml(song) {
             const author = authorsMap.get(song.authorId);
@@ -269,7 +237,6 @@
 
         function applyFilters() {
             currentPage = 1;
-            renderChips();
             renderResults();
         }
 
@@ -335,7 +302,7 @@
             document.getElementById('searchInput').value = '';
             document.getElementById('sortBy').value = 'title-asc';
             Object.values(selected).forEach(set => set.clear());
-            buildFilterOptions();
+            Object.values(combos).forEach(c => { c.rerenderChips(); c.clearInput(); });
             applyFilters();
         }
 
@@ -350,7 +317,7 @@
         document.getElementById('nextPage').addEventListener('click', () => { currentPage++; renderResults(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
         // --- zagon ---
-        buildFilterOptions();
+        const combos = buildFilterOptions();
         applyFilters();
     </script>
 </body>

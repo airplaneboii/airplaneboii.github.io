@@ -199,60 +199,75 @@ main {
     .filter-grid { grid-template-columns: 1fr; }
 }
 
-.multiselect { position: relative; }
-.multiselect-btn {
-    width: 100%;
+.combo { position: relative; }
+.combo-box {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
-    gap: .5rem;
-    padding: .55rem .7rem;
+    gap: .3rem;
+    width: 100%;
+    min-height: 2.3rem;
+    padding: .3rem .4rem;
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
     background: #fff;
-    font-size: .82rem;
-    text-align: left;
-    cursor: pointer;
-    color: var(--ink);
+    cursor: text;
 }
-.multiselect-btn:hover { border-color: var(--ink-faint); }
-.multiselect-btn .chev { font-size: .6rem; color: var(--ink-faint); }
-.multiselect-panel {
+.combo-box:focus-within { border-color: var(--focus); }
+.combo-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    border: 1px solid var(--accent-soft-2);
+    border-radius: 999px;
+    padding: .18rem .4rem .18rem .6rem;
+    font-size: .72rem;
+    font-weight: 600;
+    white-space: nowrap;
+    max-width: 100%;
+}
+.combo-chip span { overflow: hidden; text-overflow: ellipsis; }
+.combo-chip button {
+    background: none; border: none; cursor: pointer; color: inherit;
+    font-size: .85rem; line-height: 1; padding: 0; flex: 0 0 auto;
+}
+.combo-input {
+    flex: 1 1 6rem;
+    min-width: 6rem;
+    border: none;
+    outline: none;
+    font-size: .82rem;
+    font-family: var(--sans);
+    color: var(--ink);
+    padding: .2rem .15rem;
+    background: transparent;
+}
+.combo-suggestions {
     position: absolute;
     z-index: 30;
     top: calc(100% + 4px);
     left: 0;
-    width: max(100%, 220px);
+    width: max(100%, 240px);
     max-height: 15rem;
     overflow-y: auto;
     background: #fff;
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow);
-    padding: .4rem;
+    padding: .3rem;
 }
-.multiselect-panel[hidden] { display: none; }
-.ms-search {
-    width: 100%;
-    padding: .4rem .5rem;
-    margin-bottom: .35rem;
-    border: 1px solid var(--line);
-    border-radius: 5px;
-    font-size: .78rem;
-}
-.ms-option {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    padding: .32rem .4rem;
-    font-size: .78rem;
+.combo-suggestions[hidden] { display: none; }
+.combo-suggestion-item {
+    padding: .38rem .5rem;
+    font-size: .8rem;
     border-radius: 5px;
     cursor: pointer;
     color: var(--ink);
 }
-.ms-option:hover { background: var(--paper-deep); }
-.ms-option input { accent-color: var(--accent); }
-.ms-empty { font-size: .76rem; color: var(--ink-faint); padding: .4rem; }
+.combo-suggestion-item:hover, .combo-suggestion-item.is-active { background: var(--paper-deep); }
+.combo-empty { font-size: .74rem; color: var(--ink-faint); padding: .4rem .5rem; }
 
 /* ---------------------------------------------------------------------
    Toolbar / counts
@@ -283,31 +298,10 @@ main {
     font-weight: 600;
     font-size: .78rem;
 }
-.active-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .4rem;
-    margin-bottom: 1rem;
-}
-.chip {
-    display: inline-flex;
-    align-items: center;
-    gap: .35rem;
-    background: var(--accent-soft);
-    color: var(--accent-dark);
-    border: 1px solid var(--accent-soft-2);
-    border-radius: 999px;
-    padding: .25rem .6rem .25rem .7rem;
-    font-size: .72rem;
-    font-weight: 600;
-}
-.chip button {
-    background: none; border: none; cursor: pointer; color: inherit;
-    font-size: .85rem; line-height: 1; padding: 0;
-}
 
 /* ---------------------------------------------------------------------
    Result cards ("kartoteka" index cards)
+
    --------------------------------------------------------------------- */
 .results { display: flex; flex-direction: column; gap: .65rem; }
 
