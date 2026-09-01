@@ -171,9 +171,9 @@ window.avtorjiDatabase = [
     },
     {
         "id": 18,
-        "firstName": "A.",
+        "firstName": "Anton",
         "lastName": "Trepal",
-        "fullName": "A. Trepal",
+        "fullName": "Anton Trepal",
         "birthYear": null,
         "deathYear": null,
         "occupation": "cerkveni skladatelj",
@@ -341,9 +341,9 @@ window.avtorjiDatabase = [
     },
     {
         "id": 35,
-        "firstName": "R.",
+        "firstName": "Rafko",
         "lastName": "Zupanec",
-        "fullName": "R. Zupanec",
+        "fullName": "Rafko Zupanec",
         "birthYear": null,
         "deathYear": null,
         "occupation": "cerkveni skladatelj",
@@ -931,9 +931,9 @@ window.avtorjiDatabase = [
     },
     {
         "id": 94,
-        "firstName": "A.",
+        "firstName": "Anton",
         "lastName": "Vilar",
-        "fullName": "A. Vilar",
+        "fullName": "Anton Vilar",
         "birthYear": null,
         "deathYear": null,
         "occupation": "cerkveni skladatelj",
@@ -1568,5 +1568,375 @@ window.avtorjiDatabase = [
         "deathYear": null,
         "occupation": "priredba in orgelska spremljava",
         "description": "Ex Graduali Romano (Ed. Vaticana) sta besedilo in napeve prepisala ter jima organumsko spremljavo priredila Fr. Kimovec in Stan. Premrl (Introiti in komunije, 1909)."
+    },
+    {
+        "id": 158,
+        "firstName": "Josip",
+        "lastName": "Brnobič",
+        "fullName": "Josip Brnobič",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 159,
+        "firstName": "Jože",
+        "lastName": "Rozman",
+        "fullName": "Jože Rozman",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "",
+        "description": ""
+    },
+    {
+        "id": 160,
+        "firstName": "Jožef",
+        "lastName": "Zrimšek",
+        "fullName": "Jožef Zrimšek",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 161,
+        "firstName": "Josip",
+        "lastName": "Križman",
+        "fullName": "Josip Križman",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 162,
+        "firstName": "Franc",
+        "lastName": "Požun",
+        "fullName": "Franc Požun",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 163,
+        "firstName": "Breda",
+        "lastName": "Šček-Orel",
+        "fullName": "Breda Šček-Orel",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "skladateljica",
+        "description": ""
+    },
+    {
+        "id": 164,
+        "firstName": "Josip",
+        "lastName": "Šterbenc",
+        "fullName": "Josip Šterbenc",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 165,
+        "firstName": "Franc",
+        "lastName": "Babič",
+        "fullName": "Franc Babič",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 166,
+        "firstName": "Milan",
+        "lastName": "Jurca",
+        "fullName": "Milan Jurca",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "skladatelj",
+        "description": "(ime v izvirniku slabo čitljivo — preveri)"
+    },
+    {
+        "id": 167,
+        "firstName": "Josip",
+        "lastName": "Kenda",
+        "fullName": "Josip Kenda",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 168,
+        "firstName": "Ivan",
+        "lastName": "Laharnar",
+        "fullName": "Ivan Laharnar",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 169,
+        "firstName": "Ivan",
+        "lastName": "Rijavec",
+        "fullName": "Ivan Rijavec",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 170,
+        "firstName": "Jerko",
+        "lastName": "Gržinčič",
+        "fullName": "Jerko Gržinčič",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "duhovnik, skladatelj",
+        "description": ""
+    },
+    {
+        "id": 171,
+        "firstName": "Avgust",
+        "lastName": "Cerer",
+        "fullName": "Avgust Cerer",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 172,
+        "firstName": "R.",
+        "lastName": "Kristan",
+        "fullName": "R. Kristan",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "skladatelj",
+        "description": ""
+    },
+    {
+        "id": 173,
+        "firstName": "Blaž",
+        "lastName": "Arnič",
+        "fullName": "Blaž Arnič",
+        "birthYear": 1901,
+        "deathYear": 1970,
+        "occupation": "skladatelj, dirigent",
+        "description": "Slovenski skladatelj, avtor simfonij, opere in cerkvene glasbe."
+    },
+    {
+        "id": 174,
+        "firstName": "Lucijan",
+        "lastName": "Marija Škerjanc",
+        "fullName": "Lucijan Marija Škerjanc",
+        "birthYear": 1900,
+        "deathYear": 1973,
+        "occupation": "skladatelj, dirigent, pedagog",
+        "description": "Eden vodilnih slovenskih skladateljev 20. stoletja, dolgoletni profesor na Akademiji za glasbo v Ljubljani."
+    },
+    {
+        "id": 175,
+        "firstName": "Gustl",
+        "lastName": "Rakuša",
+        "fullName": "Gustl Rakuša",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "skladatelj",
+        "description": ""
+    },
+    {
+        "id": 176,
+        "firstName": "Franjo",
+        "lastName": "Luževič",
+        "fullName": "Franjo Luževič",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 177,
+        "firstName": "Fran",
+        "lastName": "Blažič",
+        "fullName": "Fran Blažič",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 178,
+        "firstName": "Vlado",
+        "lastName": "Lempl",
+        "fullName": "Vlado Lempl",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 179,
+        "firstName": "Zorko",
+        "lastName": "Prelovec",
+        "fullName": "Zorko Prelovec",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 180,
+        "firstName": "Iva",
+        "lastName": "Klemenc",
+        "fullName": "Iva Klemenc",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "skladateljica",
+        "description": ""
+    },
+    {
+        "id": 181,
+        "firstName": "France",
+        "lastName": "Ačko",
+        "fullName": "France Ačko",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "kapucin, skladatelj",
+        "description": ""
+    },
+    {
+        "id": 182,
+        "firstName": "Janko",
+        "lastName": "Ravnik",
+        "fullName": "Janko Ravnik",
+        "birthYear": 1891,
+        "deathYear": 1982,
+        "occupation": "skladatelj, zborovodja, pedagog",
+        "description": "Vidni slovenski zborovski skladatelj in dirigent 20. stoletja."
+    },
+    {
+        "id": 183,
+        "firstName": "Rihard",
+        "lastName": "Orel",
+        "fullName": "Rihard Orel",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 184,
+        "firstName": "M.",
+        "lastName": "Rožanc",
+        "fullName": "M. Rožanc",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": "(znana le začetnica imena)"
+    },
+    {
+        "id": 185,
+        "firstName": "Alojzij",
+        "lastName": "Sachs",
+        "fullName": "Alojzij Sachs",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 186,
+        "firstName": "Andrej",
+        "lastName": "Vavken",
+        "fullName": "Andrej Vavken",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 187,
+        "firstName": "Christian",
+        "lastName": "Heinrich Rinck",
+        "fullName": "Christian Heinrich Rinck",
+        "birthYear": 1770,
+        "deathYear": 1846,
+        "occupation": "nemški organist, skladatelj in pedagog",
+        "description": ""
+    },
+    {
+        "id": 188,
+        "firstName": "Niko",
+        "lastName": "Loboda",
+        "fullName": "Niko Loboda",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 189,
+        "firstName": "Saša",
+        "lastName": "Šantel",
+        "fullName": "Saša Šantel",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "skladatelj",
+        "description": "(morebiti isti kot slikar Saša Šantel, 1883–1945 — ni potrjeno, preveri)"
+    },
+    {
+        "id": 190,
+        "firstName": "Ambrož",
+        "lastName": "Remec",
+        "fullName": "Ambrož Remec",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "frančiškan/kapucin, skladatelj",
+        "description": "(red ni zanesljivo razviden iz vira — preveri)"
+    },
+    {
+        "id": 191,
+        "firstName": "Alojzij",
+        "lastName": "Martinc",
+        "fullName": "Alojzij Martinc",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": "(ime razvito iz okrajšave \"Al.\" — preveri)"
+    },
+    {
+        "id": 192,
+        "firstName": "Mirko",
+        "lastName": "Rener",
+        "fullName": "Mirko Rener",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 193,
+        "firstName": "Andrej",
+        "lastName": "Pogačar",
+        "fullName": "Andrej Pogačar",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
+    },
+    {
+        "id": 194,
+        "firstName": "Rudolf",
+        "lastName": "Bušič",
+        "fullName": "Rudolf Bušič",
+        "birthYear": null,
+        "deathYear": null,
+        "occupation": "cerkveni skladatelj",
+        "description": ""
     },
 ];
