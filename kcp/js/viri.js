@@ -543,4 +543,28 @@ window.viriDatabase = [
         "url": "https://www.dlib.si/stream/URN:NBN:SI:DOC-FKFD1TBY/f2110213-26c7-4ffb-bd82-0198d41e4d7d/PDF",
         "website": "dLib"
     },
+    {
+        "id": 69,
+        "name": "Angelik Hribar: Obhajilne pesmi",
+        "year": 1910,
+        "edition": "Katoliška bukvarna",
+        "url": "https://www.dlib.si/stream/URN:NBN:SI:IMG-2G3HCZ69/f79d264d-3143-489c-9b74-bff9e7798f85/PDF",
+        "website": "dLib"
+    },
+    {
+        "id": 70,
+        "name": "Angelik Hribar: Adventne in božične pesmi",
+        "year": 1911,
+        "edition": "Katoliška bukvarna",
+        "url": "https://www.dlib.si/stream/URN:NBN:SI:IMG-WBTFHXFO/67085dc0-eb1a-4d24-b06a-27e84c1d897f/PDF",
+        "website": "dLib"
+    },
+    {
+        "id": 71,
+        "name": "Angelik Hribar: Postni in velikonočni napevi",
+        "year": 1912,
+        "edition": "Katoliška bukvarna",
+        "url": "https://www.dlib.si/stream/URN:NBN:SI:IMG-SCWYDSOK/fcda30d6-5bf2-4720-9651-f69c742ae577/PDF",
+        "website": "dLib"
+    },
 ];
